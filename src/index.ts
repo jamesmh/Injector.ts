@@ -1,2 +1,8 @@
 import Injector from './injector';
-export default Injector;
+import { Injectable, InjectableSingleton } from './decorators/injectable';
+
+export{
+     Injector,
+     Injectable,
+     InjectableSingleton
+}
