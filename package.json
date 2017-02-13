@@ -1,6 +1,6 @@
 {
   "name": "ts.injector",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TypeScript DI.",
   "main": "src/index.ts",
   "author": "James Hickey",
