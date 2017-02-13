@@ -16,7 +16,7 @@ const _getArgumentNames = (functionString: string) : string[] => _regExInsidePar
 /**
  * Class that provides dependency injection for vanilla js.
  */
-export default class Injector {
+ class Injector {
 	private _dependencies: DependencyArray;
 
 	/**
@@ -89,3 +89,5 @@ export default class Injector {
 		return this;
 	}
 }
+
+export default new Injector();
