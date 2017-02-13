@@ -1,8 +1,8 @@
 {
   "name": "ts.injector",
-  "version": "1.0.1",
+  "version": "1.0.6",
   "description": "TypeScript DI.",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "author": "James Hickey",
   "license": "ISC",
   "typings": "dist/index",
