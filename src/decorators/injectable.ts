@@ -27,7 +27,7 @@ export function InjectableSingleton(injectionKey) {
 }
 
 /**
- * Inject the dependencies of this class's constructor as properties on the object.
+ * Inject the dependencies of this class's constructor.
  * 
  * @export
  * @param {any} target
@@ -39,6 +39,6 @@ export function Inject(target){
         for(let key of Object.keys(dependencies)){
             dependencyArray[key] = dependencies[key]; 
         }
-        this.constructor(...dependencies);
+        return this.constructor(...dependencies);
     }
 }
