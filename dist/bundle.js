@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,7 +73,7 @@
 "use strict";
 
 
-var utils_1 = __webpack_require__(2);
+var utils_1 = __webpack_require__(3);
 var _regExInsideParentheses = /[(][^)]*[)]/;
 var _regExParenthesesAndSpaces = /[()\s]/g;
 var _getArgumentNames = function (functionString) {
@@ -153,22 +153,75 @@ var Injector = function () {
     return Injector;
 }();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = Injector;
+exports.default = new Injector();
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
-
-
-
-/***/ }),
-/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(1);
+var injector_1 = __webpack_require__(0);
+/**
+ * Class decorator: Make this class injectable with the given key.
+ *
+ * @export
+ * @param {any} injectionKey
+ * @returns
+     */
+function Injectable(injectionKey) {
+    return function (target) {
+        injector_1.default.register(injectionKey, target);
+    };
+}
+exports.Injectable = Injectable;
+/**
+ * Class decorator: Make this class Injectable with the given key (as singleton).
+ *
+ * @export
+ * @param {any} injectionKey
+ * @returns
+ */
+function InjectableSingleton(injectionKey) {
+    return function (target) {
+        injector_1.default.registerSingleton(injectionKey, target);
+    };
+}
+exports.InjectableSingleton = InjectableSingleton;
+/**
+ * Inject the dependencies of this class's constructor.
+ *
+ * @export
+ * @param {any} target
+ */
+function Inject(target) {
+    return function () {
+        var dependencies = injector_1.default.inject(this.constructor);
+        var dependencyArray = [];
+        for (var _i = 0, _a = Object.keys(dependencies); _i < _a.length; _i++) {
+            var key = _a[_i];
+            dependencyArray[key] = dependencies[key];
+        }
+        return this.constructor.apply(this, dependencies);
+    };
+}
+exports.Inject = Inject;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(2);
 /**
  * Loop through an objects own properties and execute an action.
  * Action function will be provided the current key and the property assign to that key.
@@ -184,15 +237,18 @@ exports.forEachPropertyDoAction = function (obj, action) {
 };
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var injector_1 = __webpack_require__(0);
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = injector_1.default;
+exports.Injector = injector_1.default;
+var injectable_1 = __webpack_require__(1);
+exports.Injectable = injectable_1.Injectable;
+exports.InjectableSingleton = injectable_1.InjectableSingleton;
+exports.Inject = injectable_1.Inject;
 
 /***/ })
 /******/ ]);

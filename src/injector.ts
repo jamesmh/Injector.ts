@@ -1,15 +1,7 @@
 import { forEachPropertyDoAction } from './utils';
+import DependencyArray from './Interfaces/dependencyArray';
 
-interface DependencyObject {
-	dependency: any;
-	singleton: boolean
- }
-
-interface DependencyArray {
-	 [index: string]: DependencyObject;
- }
-
- const  _regExInsideParentheses = /[(][^)]*[)]/;
+const  _regExInsideParentheses = /[(][^)]*[)]/;
 const _regExParenthesesAndSpaces = /[()\s]/g;
 const _getArgumentNames = (functionString: string) : string[] => _regExInsideParentheses.exec(functionString)[0].replace(_regExParenthesesAndSpaces, "").split(',');
 

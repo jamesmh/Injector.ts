@@ -1,4 +1,4 @@
-import './Interfaces/ActionFunction';
+import './Interfaces/actionFunction';
 
 /**
  * Loop through an objects own properties and execute an action.
