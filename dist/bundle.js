@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,10 +73,10 @@
 "use strict";
 
 
-var utils_1 = __webpack_require__(3);
+var utils_1 = __webpack_require__(5);
 var _regExInsideParentheses = /[(][^)]*[)]/;
 var _regExParenthesesAndSpaces = /[()\s]/g;
-var _getArgumentNames = function (functionString) {
+var _getArgumentNames = function _getArgumentNames(functionString) {
     return _regExInsideParentheses.exec(functionString)[0].replace(_regExParenthesesAndSpaces, "").split(',');
 };
 /**
@@ -164,6 +164,40 @@ exports.default = new Injector();
 
 var injector_1 = __webpack_require__(0);
 /**
+ * Inject the dependencies of this class's constructor.
+ *
+ * @export
+ * @param {any} target
+ */
+function Inject() {
+    return function (_constructor) {
+        var dependencies = injector_1.default.inject(function () {
+            var keys = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                keys[_i] = arguments[_i];
+            }
+        });
+        var dependencyArray = [];
+        for (var _i = 0, _a = Object.keys(dependencies); _i < _a.length; _i++) {
+            var key = _a[_i];
+            dependencyArray[key] = dependencies[key];
+        }
+        _constructor = function constructor() {
+            _constructor.call.apply(_constructor, dependencyArray);
+        };
+    };
+}
+exports.Inject = Inject;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var injector_1 = __webpack_require__(0);
+/**
  * Class decorator: Make this class injectable with the given key.
  *
  * @export
@@ -176,6 +210,15 @@ function Injectable(injectionKey) {
     };
 }
 exports.Injectable = Injectable;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var injector_1 = __webpack_require__(0);
 /**
  * Class decorator: Make this class Injectable with the given key (as singleton).
  *
@@ -185,43 +228,26 @@ exports.Injectable = Injectable;
  */
 function InjectableSingleton(injectionKey) {
     return function (target) {
-        injector_1.default.registerSingleton(injectionKey, target);
+        injector_1.default.registerSingleton(injectionKey, new target());
     };
 }
 exports.InjectableSingleton = InjectableSingleton;
-/**
- * Inject the dependencies of this class's constructor.
- *
- * @export
- * @param {any} target
- */
-function Inject(target) {
-    return function () {
-        var dependencies = injector_1.default.inject(this.constructor);
-        var dependencyArray = [];
-        for (var _i = 0, _a = Object.keys(dependencies); _i < _a.length; _i++) {
-            var key = _a[_i];
-            dependencyArray[key] = dependencies[key];
-        }
-        return this.constructor.apply(this, dependencies);
-    };
-}
-exports.Inject = Inject;
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-
-
-/***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(2);
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(4);
 /**
  * Loop through an objects own properties and execute an action.
  * Action function will be provided the current key and the property assign to that key.
@@ -237,7 +263,7 @@ exports.forEachPropertyDoAction = function (obj, action) {
 };
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -245,10 +271,12 @@ exports.forEachPropertyDoAction = function (obj, action) {
 
 var injector_1 = __webpack_require__(0);
 exports.Injector = injector_1.default;
-var injectable_1 = __webpack_require__(1);
+var inject_1 = __webpack_require__(1);
+exports.Inject = inject_1.Inject;
+var injectableSingleton_1 = __webpack_require__(3);
+exports.InjectableSingleton = injectableSingleton_1.InjectableSingleton;
+var injectable_1 = __webpack_require__(2);
 exports.Injectable = injectable_1.Injectable;
-exports.InjectableSingleton = injectable_1.InjectableSingleton;
-exports.Inject = injectable_1.Inject;
 
 /***/ })
 /******/ ]);

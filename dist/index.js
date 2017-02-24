@@ -1,6 +1,9 @@
 var injector_1 = require('./injector');
 exports.Injector = injector_1.default;
+var inject_1 = require('./decorators/inject');
+exports.Inject = inject_1.Inject;
+var injectableSingleton_1 = require('./decorators/injectableSingleton');
+exports.InjectableSingleton = injectableSingleton_1.InjectableSingleton;
 var injectable_1 = require('./decorators/injectable');
 exports.Injectable = injectable_1.Injectable;
-exports.InjectableSingleton = injectable_1.InjectableSingleton;
 //# sourceMappingURL=index.js.map

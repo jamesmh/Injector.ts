@@ -12,33 +12,3 @@ export function Injectable(injectionKey) {
         Injector.register(injectionKey, target);
     }
 }
-
-/**
- * Class decorator: Make this class Injectable with the given key (as singleton).
- * 
- * @export
- * @param {any} injectionKey
- * @returns
- */
-export function InjectableSingleton(injectionKey) {
-    return function(target) {
-        Injector.registerSingleton(injectionKey, target);
-    }
-}
-
-/**
- * Inject the dependencies of this class's constructor.
- * 
- * @export
- * @param {any} target
- */
-export function Inject(target){
-    return function(){
-        const dependencies = Injector.inject(this.constructor);
-        const dependencyArray: any[] = [];
-        for(let key of Object.keys(dependencies)){
-            dependencyArray[key] = dependencies[key]; 
-        }
-        return this.constructor(...dependencies);
-    }
-}

@@ -1,5 +1,7 @@
 import Injector from './injector';
-import { Injectable, InjectableSingleton, Inject } from './decorators/injectable';
+import { Inject } from './decorators/inject';
+import { InjectableSingleton } from './decorators/injectableSingleton';
+import { Injectable } from './decorators/injectable';
 
 export{
      Injector,
